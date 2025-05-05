@@ -4,4 +4,6 @@ Automated Essay Scoring (AES) is a tool developed to evaluate and assign scores 
 
 To run the project, clone this repository then download all the requirements from requirements.txt, and run using the command python manage.py runserver
 
-Architecture is mentioned below...
+Architecture Diagram:
+
+![Image](https://github.com/user-attachments/assets/2f4fb790-6964-4a35-9073-b54562b63c7f)
