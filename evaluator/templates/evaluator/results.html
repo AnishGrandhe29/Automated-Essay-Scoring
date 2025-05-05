@@ -1,0 +1,299 @@
+{% extends 'evaluator/base.html' %}
+
+{% block title %}Results - Car Essay Evaluator{% endblock %}
+
+{% block extra_css %}
+<style>
+    .score-display {
+        font-size: 4rem;
+        font-weight: bold;
+    }
+    
+    .grade-display {
+        font-size: 3.5rem;
+        font-weight: bold;
+    }
+    
+    .score-card {
+        transition: transform 0.3s;
+    }
+    
+    .score-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .recommendation-item {
+        padding: 10px;
+        border-left: 4px solid #0d6efd;
+        margin-bottom: 10px;
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="mb-4">
+            <a href="{% url 'evaluator:home' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-1"></i> Submit Another Essay
+            </a>
+        </div>
+        
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">Evaluation Results</h2>
+            </div>
+            
+            <div class="card-body">
+                <h3 class="mb-3">{{ essay.title }}</h3>
+                
+                {% if not essay.is_car_topic %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Not a Car Essay:</strong> This essay doesn't appear to be primarily about cars (keyword density: {{ essay.car_keyword_density|floatformat:4 }}). For the most accurate evaluation, please submit an essay focused on automotive topics.
+                </div>
+                {% endif %}
+                
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card score-card text-center bg-light mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Overall Score</h5>
+                                <div class="score-display text-primary">{{ score.score|floatformat:1 }}</div>
+                                <p class="text-muted">out of 6</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card score-card text-center bg-light mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Car-Specific Score</h5>
+                                <div class="score-display text-success">{{ score.car_specific_score|floatformat:1 }}</div>
+                                <p class="text-muted">out of 6</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card score-card text-center bg-light mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Grade</h5>
+                                <div id="gradeContainer" class="grade-display text-dark"></div>
+                                <p id="gradeDescription" class="text-muted"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if score.get_car_topic_analysis %}
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0"><i class="fas fa-car me-2"></i>Car Topic Coverage</h5>
+                            </div>
+                            <div class="card-body">
+                                <div style="height: 300px;">
+                                    <canvas id="coverageChart"></canvas>
+                                </div>
+                                <div class="mt-3">
+                                    <h6><i class="fas fa-trophy text-warning me-2"></i>Strongest Category</h6>
+                                    <p>{{ score.get_strongest_category|title }}</p>
+
+                                    {% if score.get_areas_for_improvement %}
+                                    <h6><i class="fas fa-tools text-secondary me-2"></i>Areas for Improvement</h6>
+                                    <ul class="list-unstyled">
+                                        {% for area in score.get_areas_for_improvement %}
+                                        <li><i class="fas fa-angle-right me-2"></i>{{ area|title }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Essay Analysis</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h6>Essay Structure</h6>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td>Sentences</td>
+                                            <td class="text-end">{{ score.analysis_data.sentence_analysis.num_sentences }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Average Sentence Length</td>
+                                            <td class="text-end">{{ score.analysis_data.sentence_analysis.avg_sentence_length|floatformat:1 }} words</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sentence Length Variation</td>
+                                            <td class="text-end">{{ score.analysis_data.sentence_analysis.sentence_length_variation|floatformat:1 }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div>
+                                    <h6>Vocabulary</h6>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td>Total Words</td>
+                                            <td class="text-end">{{ score.analysis_data.vocabulary_analysis.total_words }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Unique Words</td>
+                                            <td class="text-end">{{ score.analysis_data.vocabulary_analysis.unique_words }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lexical Diversity</td>
+                                            <td class="text-end">{{ score.analysis_data.vocabulary_analysis.lexical_diversity|floatformat:3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Transition Words</td>
+                                            <td class="text-end">{{ score.analysis_data.transition_words }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0"><i class="fas fa-lightbulb me-2 text-warning"></i>Recommendations</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if score.get_recommendations %}
+                            {% for recommendation in score.get_recommendations %}
+                            <div class="recommendation-item">
+                                <i class="fas fa-check-circle me-2 text-success"></i>{{ recommendation }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <p>No specific recommendations available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Essay Content</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="p-3 bg-light rounded">
+                            {{ essay.content|linebreaks }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Set up grade display
+    const score = {{ score.score|floatformat:1 }};
+    let grade, description;
+
+    // Thresholds adjusted for a 6-point maximum scale
+    if (score >= 5.0) {
+        grade = "A+";
+        description = "Outstanding";
+    } else if (score >= 4.0) {
+        grade = "A";
+        description = "Excellent";
+    } else if (score >= 3.0) {
+        grade = "B+";
+        description = "Very Good";
+    } else if (score >= 2.5) {
+        grade = "B+";
+        description = "Good";
+    } else if (score >= 2.0) {
+        grade = "B";
+        description = "Above Average";
+    } else if (score >= 4.2) {
+        grade = "B-";
+        description = "Slightly Above Average";
+    } else if (score >= 3.9) {
+        grade = "C+";
+        description = "Average";
+    } else if (score >= 3.6) {
+        grade = "C";
+        description = "Satisfactory";
+    } else if (score >= 3.3) {
+        grade = "C-";
+        description = "Below Average";
+    } else if (score >= 3.0) {
+        grade = "D+";
+        description = "Needs Improvement";
+    } else if (score >= 2.4) {
+        grade = "D";
+        description = "Poor";
+    } else if (score >= 1.8) {
+        grade = "D-";
+        description = "Very Poor";
+    } else {
+        grade = "F";
+        description = "Unsatisfactory";
+    }
+
+    document.getElementById('gradeContainer').textContent = grade;
+    document.getElementById('gradeDescription').textContent = description;
+        // Radar Chart
+        {% if score.get_car_topic_analysis and score.get_car_topic_analysis.coverage_by_category %}
+        const coverageData = {
+            labels: [
+                {% for category in score.get_car_topic_analysis.coverage_by_category %}
+                    "{{ category|title }}",
+                {% endfor %}
+            ],
+            datasets: [{
+                label: 'Coverage',
+                data: [
+                    {% for category, value in score.get_car_topic_analysis.coverage_by_category.items %}
+                        {{ value }},
+                    {% endfor %}
+                ],
+                fill: true,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(54, 162, 235)'
+            }]
+        };
+
+        const coverageConfig = {
+            type: 'radar',
+            data: coverageData,
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('coverageChart'), coverageConfig);
+        {% endif %}
+    });
+</script>
+{% endblock %}

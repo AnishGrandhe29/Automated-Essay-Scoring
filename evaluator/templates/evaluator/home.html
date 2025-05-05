@@ -1,0 +1,104 @@
+{% extends 'evaluator/base.html' %}
+
+{% block title %}Home - Essay Evaluator{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">Essay Evaluator</h2>
+            </div>
+            
+            <div class="card-body">
+                <p class="lead mb-4">
+                    Our AI-powered system analyzes and scores essays focused on automotive topics. Submit your car-related essay below for evaluation.
+                </p>
+                
+                <div class="mb-4">
+                    <h5><i class="fas fa-check-circle text-success me-2"></i>What We Evaluate</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-cogs me-2 text-primary"></i> Technical accuracy and depth</li>
+                        <li class="list-group-item"><i class="fas fa-car me-2 text-primary"></i> Car topic coverage across multiple categories</li>
+                        <li class="list-group-item"><i class="fas fa-book-open me-2 text-primary"></i> Essay structure and coherence</li>
+                        <li class="list-group-item"><i class="fas fa-language me-2 text-primary"></i> Vocabulary usage and diversity</li>
+                    </ul>
+                </div>
+                
+                <hr class="my-4">
+                
+                <form method="post" action="{% url 'evaluator:evaluate_essay' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">
+                            <i class="fas fa-heading me-2"></i>Essay Title
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.title.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.content.id_for_label }}" class="form-label">
+                            <i class="fas fa-file-alt me-2"></i>Essay Content
+                        </label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.content.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            <i class="fas fa-info-circle"></i> For best results, write an essay that contains at least 250 words on automotive-related topics.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-robot me-2"></i>Evaluate Essay
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card-footer text-muted">
+                <i class="fas fa-clock me-1"></i> Evaluation usually takes less than 10 seconds.
+            </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <h5>Example Car Essay Topics</h5>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Electric Vehicles</h6>
+                            <p class="card-text small">The impact of EVs on the automotive industry and environment</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Autonomous Driving</h6>
+                            <p class="card-text small">Self-driving technology and its implications for the future</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Classic Cars</h6>
+                            <p class="card-text small">Evolution of automotive design and engineering through history</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

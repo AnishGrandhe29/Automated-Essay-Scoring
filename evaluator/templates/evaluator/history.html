@@ -1,0 +1,73 @@
+{% extends 'evaluator/base.html' %}
+
+{% block title %}Evaluation History - Car Essay Evaluator{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">Evaluation History</h2>
+            </div>
+            
+            <div class="card-body">
+                {% if essays %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Title</th>
+                                    <th class="text-center">Is Car Topic</th>
+                                    <th class="text-center">Score</th>
+                                    <th class="text-center">Car-Specific Score</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for essay in essays %}
+                                <tr>
+                                    <td>{{ essay.title }}</td>
+                                    <td class="text-center">
+                                        {% if essay.is_car_topic %}
+                                            <span class="badge bg-success">Yes</span>
+                                        {% else %}
+                                            <span class="badge bg-warning text-dark">No</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if essay.score %}
+                                            {{ essay.score.score|floatformat:1 }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if essay.score %}
+                                            {{ essay.score.car_specific_score|floatformat:1 }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">{{ essay.created_at|date:"M d, Y" }}</td>
+                                    <td class="text-center">
+                                        <a href="{% url 'evaluator:results' essay.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        No essays have been evaluated yet. <a href="{% url 'evaluator:home' %}" class="alert-link">Submit an essay</a> to get started.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
