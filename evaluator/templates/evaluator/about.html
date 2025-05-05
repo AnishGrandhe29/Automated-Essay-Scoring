@@ -1,0 +1,195 @@
+{% extends 'evaluator/base.html' %}
+
+{% block title %}About - Car Essay Evaluator{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">About the Car Essay Evaluation System</h2>
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1494905998402-395d579af36f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="img-fluid rounded" alt="Car technology">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Our Mission</h3>
+                        <p class="lead">
+                            To provide objective, consistent, and detailed evaluation of car-related essays using advanced artificial intelligence.
+                        </p>
+                        <p>
+                            The Car Essay Evaluation System uses deep learning technology to analyze essays about automotive topics. 
+                            Our system provides comprehensive feedback on essay quality, technical accuracy, and suggestions for improvement.
+                        </p>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <h3>How It Works</h3>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card bg-light h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-brain text-primary me-2"></i>Deep Learning Model</h5>
+                                <p class="card-text">
+                                    Our system uses a hybrid deep learning model combining bidirectional LSTM networks for text analysis with dense neural networks for feature processing. The model was trained on thousands of essays to recognize patterns in high-quality automotive writing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-project-diagram text-primary me-2"></i>Feature Extraction</h5>
+                                <p class="card-text">
+                                    We extract both general linguistic features (coherence, vocabulary richness, sentence structure) and domain-specific car features (technical accuracy, category coverage, brand knowledge) to provide a thorough analysis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card bg-light h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-car text-primary me-2"></i>Car Topic Detection</h5>
+                                <p class="card-text">
+                                    Our system identifies whether an essay is primarily about automotive topics using keyword analysis across categories like technical aspects, car models, brands, environmental impact, safety, and performance.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-chart-bar text-primary me-2"></i>Comprehensive Scoring</h5>
+                                <p class="card-text">
+                                    We provide both a general essay score and a car-specific score that takes into account technical accuracy, topic coverage, and domain knowledge. Detailed feedback includes strengths and specific recommendations for improvement.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <h3>Car Essay Categories</h3>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Technical</h5>
+                                <p class="card-text">Engine systems, transmission, horsepower, torque, combustion, turbocharging, braking systems</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Environmental</h5>
+                                <p class="card-text">Electric vehicles, hybrid technology, emissions, carbon footprint, sustainability, eco-friendly innovations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Safety</h5>
+                                <p class="card-text">Airbags, crash testing, driver assistance systems, autonomous features, collision prevention, structural integrity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Models</h5>
+                                <p class="card-text">Sedan, SUV, coupe, hatchback, convertible, wagon, truck, van, crossover, and other vehicle types</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Brands</h5>
+                                <p class="card-text">Major manufacturers, their history, product lineups, market positioning, and comparative analysis</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Performance</h5>
+                                <p class="card-text">Speed metrics, acceleration capabilities, handling characteristics, racing applications, track performance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <h3>Technology Stack</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fab fa-python me-3 text-primary fa-2x"></i>
+                                <div>
+                                    <strong>Python</strong>
+                                    <div class="text-muted small">Core programming language</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-brain me-3 text-primary fa-2x"></i>
+                                <div>
+                                    <strong>TensorFlow</strong>
+                                    <div class="text-muted small">Deep learning framework</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-language me-3 text-primary fa-2x"></i>
+                                <div>
+                                    <strong>NLTK</strong>
+                                    <div class="text-muted small">Natural language processing</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fab fa-django me-3 text-primary fa-2x"></i>
+                                <div>
+                                    <strong>Django</strong>
+                                    <div class="text-muted small">Web framework</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fab fa-bootstrap me-3 text-primary fa-2x"></i>
+                                <div>
+                                    <strong>Bootstrap</strong>
+                                    <div class="text-muted small">Frontend framework</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-chart-pie me-3 text-primary fa-2x"></i>
+                                <div>
+                                    <strong>Chart.js</strong>
+                                    <div class="text-muted small">Data visualization</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
