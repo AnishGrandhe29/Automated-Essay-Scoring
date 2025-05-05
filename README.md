@@ -13,9 +13,9 @@ To run the project:
    pip install -r requirements.txt
 Run the server:
 
-bash
-python manage.py runserver
-
+   ```bash
+   python manage.py runserver
+   ```
 Architecture Diagram:
 
 ![Image](https://github.com/user-attachments/assets/2f4fb790-6964-4a35-9073-b54562b63c7f)
