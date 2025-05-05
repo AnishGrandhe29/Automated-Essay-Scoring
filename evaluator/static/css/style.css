@@ -1,0 +1,214 @@
+/* Main Styles for Car Essay Evaluator */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar styling */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+/* Card styling */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+/* Form styling */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+/* Button styling */
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0a58ca;
+    border-color: #0a58ca;
+}
+
+/* Footer styling */
+.footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+/* Results page styling */
+.score-container {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.score-value {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.score-label {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+/* Animation for loading */
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #0d6efd;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Score color variations */
+.score-excellent {
+    color: #198754;  /* Green */
+}
+
+.score-good {
+    color: #0d6efd;  /* Blue */
+}
+
+.score-average {
+    color: #fd7e14;  /* Orange */
+}
+
+.score-poor {
+    color: #dc3545;  /* Red */
+}
+
+/* Recommendation styling */
+.recommendation-item {
+    transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+    transform: translateX(5px);
+    background-color: #e9ecef;
+}
+
+/* Charts styling */
+.chart-container {
+    position: relative; 
+    height: 300px;
+    width: 100%;
+}
+
+/* Grade styling */
+.grade-a {
+    color: #198754;
+}
+
+.grade-b {
+    color: #0d6efd;
+}
+
+.grade-c {
+    color: #fd7e14;
+}
+
+.grade-d {
+    color: #dc3545;
+}
+
+.grade-f {
+    color: #6c757d;
+}
+
+/* Essay content display */
+.essay-content {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-line;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .score-value {
+        font-size: 2.5rem;
+    }
+    
+    .grade-display {
+        font-size: 2.5rem;
+    }
+}
+
+/* Category badges */
+.category-badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    background-color: #e9ecef;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.category-badge.technical {
+    background-color: #cff4fc;
+    color: #055160;
+}
+
+.category-badge.models {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.category-badge.brands {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.category-badge.environmental {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.category-badge.safety {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.category-badge.performance {
+    background-color: #e2e3e5;
+    color: #41464b;
+}
